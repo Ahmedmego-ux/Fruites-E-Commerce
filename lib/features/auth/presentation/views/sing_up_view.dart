@@ -21,6 +21,7 @@ final TextEditingController confirmPasswordController = TextEditingController();
 class _SingUpViewState extends State<SingUpView> {
   final _formKey2 = GlobalKey<FormState>();
   bool isPasswordHide = false;
+  bool isConfirmPasswordHide = false;
   bool isCheck = false;
   @override
   Widget build(BuildContext context) {
@@ -109,13 +110,13 @@ class _SingUpViewState extends State<SingUpView> {
                     },
                     controller: confirmPasswordController,
                     hintText: 'تاكيد كلمة المرور',
-                    sufixIcon: isPasswordHide == true
+                    sufixIcon: isConfirmPasswordHide == true
                         ? Icons.visibility_off
                         : Icons.visibility,
-                    isPassword: isPasswordHide,
+                    isPassword: isConfirmPasswordHide,
                     ontapIcon: () {
                       setState(() {
-                        isPasswordHide = !isPasswordHide;
+                        isConfirmPasswordHide = !isConfirmPasswordHide;
                       });
                     },
                   ),

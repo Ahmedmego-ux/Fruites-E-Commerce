@@ -97,13 +97,16 @@ class _LoginViewState extends State<LoginView> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        'نسيت كلمة المرور؟',
-
-                        style: TextStyle(
-                          fontSize: 13.r,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff2D9F5D),
+                      InkWell(
+                        onTap: () => Navigator.pushNamed(context, AppRoutes.forgetPasswordView),
+                        child: Text(
+                          'نسيت كلمة المرور؟',
+                        
+                          style: TextStyle(
+                            fontSize: 13.r,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xff2D9F5D),
+                          ),
                         ),
                       ),
                     ],

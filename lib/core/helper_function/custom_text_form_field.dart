@@ -5,26 +5,27 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomFormTextFormFeild extends StatelessWidget {
    CustomFormTextFormFeild({
     super.key, required this.hintText,
-     required this.sufixIcon,
-      required this.isPassword,
+      this.sufixIcon,
+       this.isPassword,
        this.ontapIcon, 
        this.validator,
-        this.controller,
+        this.controller, this.keyboardType,
   });
  
 final String hintText;
-final IconData sufixIcon;
-final bool isPassword;
+final IconData? sufixIcon;
+final bool? isPassword;
 final VoidCallback? ontapIcon;
 final String? Function(String?)? validator;
 final TextEditingController? controller;
+final TextInputType? keyboardType;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-     
+     keyboardType: keyboardType,
       controller:controller ,
       validator:validator ,
-      obscureText: isPassword,
+      obscureText: isPassword ??false,
      cursorColor: Color.fromARGB(255, 9, 9, 75),
      cursorHeight: 25,
       decoration: InputDecoration(

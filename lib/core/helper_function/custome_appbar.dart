@@ -23,7 +23,9 @@ final String screenName;
       ),
       ),
     
-      leading: Center(child: SvgPicture.asset(AppString.backIcon,width: 24.r,height: 24.r,)),
+      leading: Center(child: InkWell(
+        onTap: () => Navigator.pop(context),
+        child: SvgPicture.asset(AppString.backIcon,width: 24.r,height: 24.r,))),
     );
   }
   
