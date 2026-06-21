@@ -1,39 +1,39 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fruit_ecommerce_app/core/helper_function/custom_button.dart';
+import 'package:fruit_ecommerce_app/core/helper_function/custome_appbar.dart';
 import 'package:fruit_ecommerce_app/core/routes/routes.dart';
-import 'package:fruit_ecommerce_app/core/string/app_string.dart';
-import '../../../../core/helper_function/custom_text_form_field.dart';
-import '../../../../core/helper_function/custome_appbar.dart';
-import '../widgets/login_by.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+import '../../../../core/helper_function/custom_button.dart';
+import '../../../../core/helper_function/custom_text_form_field.dart';
+
+class SingUpView extends StatefulWidget {
+  const SingUpView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<SingUpView> createState() => _SingUpViewState();
 }
 
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
+final TextEditingController confirmPasswordController = TextEditingController();
 
-
-class _LoginViewState extends State<LoginView> {
+class _SingUpViewState extends State<SingUpView> {
+  final _formKey2 = GlobalKey<FormState>();
   bool isPasswordHide = false;
-  final _formKey = GlobalKey<FormState>();
+  bool isCheck = false;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         backgroundColor: Color(0xffFFFFFF),
-        appBar: CustomAppBar(screenName: 'تسجيل دخول'),
+        appBar: CustomAppBar(screenName: 'حساب جديد'),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.r),
           child: SingleChildScrollView(
             child: Form(
-              key: _formKey,
+              key: _formKey2,
               child: Column(
                 children: [
                   SizedBox(height: 24.h),
@@ -93,29 +93,78 @@ class _LoginViewState extends State<LoginView> {
                       });
                     },
                   ),
+
+                  SizedBox(height: 16.h),
+                  CustomFormTextFormFeild(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Password is required';
+                      }
+
+                      if (value.trim() != passwordController.text.trim()) {
+                        return "Passwords do not match";
+                      }
+
+                      return null;
+                    },
+                    controller: confirmPasswordController,
+                    hintText: 'تاكيد كلمة المرور',
+                    sufixIcon: isPasswordHide == true
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                    isPassword: isPasswordHide,
+                    ontapIcon: () {
+                      setState(() {
+                        isPasswordHide = !isPasswordHide;
+                      });
+                    },
+                  ),
                   SizedBox(height: 16.h),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'نسيت كلمة المرور؟',
+                      Checkbox(
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        visualDensity: VisualDensity.compact,
+                        activeColor: Color(0xff1B5E37),
+                        value: isCheck,
+                        onChanged: (v) {
+                          setState(() {
+                            isCheck = v!;
+                          });
+                        },
+                      ),
+                      SizedBox(width: 16.w),
+                      Expanded(
+                        child: Text(
+                          'من خلال إنشاء حساب ، فإنك توافق على الشروط والأحكام الخاصة بنا',
 
-                        style: TextStyle(
-                          fontSize: 13.r,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff2D9F5D),
+                          style: TextStyle(
+                            color: Color(0xff616A6B),
+                            fontSize: 13.r,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ],
                   ),
+
                   SizedBox(height: 33.h),
 
                   CustomButton(
                     text: 'تسجيل دخول',
                     onTap: () {
-                      if (_formKey.currentState!.validate()) {
+                      if (_formKey2.currentState!.validate()) {
                         print(emailController.text);
                         print(passwordController.text);
+
+                        if (!isCheck) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("يجب الموافقة على الشروط والأحكام"),
+                            ),
+                          );
+                        }
                       }
                     },
                   ),
@@ -123,7 +172,7 @@ class _LoginViewState extends State<LoginView> {
                   SizedBox(height: 33.h),
                   RichText(
                     text: TextSpan(
-                      text: 'لا تمتلك حساب؟ ',
+                      text: 'تمتلك حساب بالفعل؟ ',
                       style: TextStyle(
                         color: Color(0xff949D9E),
                         fontSize: 16.r,
@@ -131,9 +180,12 @@ class _LoginViewState extends State<LoginView> {
                       ),
                       children: [
                         TextSpan(
-                          
-                         recognizer: TapGestureRecognizer()..onTap =()=>Navigator.pushNamed(context, AppRoutes.singUpView),
-                          text: 'قم بانشاء حساب',
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => Navigator.pushNamed(
+                              context,
+                              AppRoutes.loginView,
+                            ),
+                          text: 'تسجيل دخول',
                           style: TextStyle(
                             color: Color(0xff1B5E37),
                             fontSize: 16.r,
@@ -142,48 +194,6 @@ class _LoginViewState extends State<LoginView> {
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(height: 33.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: 150.w,
-                        child: Divider(
-                          height: 1,
-                          thickness: 1,
-                          color: Color(0xffDDDFDF),
-                        ),
-                      ),
-                      Text(
-                        'او',
-                        style: TextStyle(
-                          fontSize: 16.r,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff0C0D0D),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 150.w,
-                        child: Divider(
-                          height: 1,
-                          thickness: 1,
-                          color: Color(0xffDDDFDF),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 16.h),
-                  LoginBy(
-                    logo: AppString.googleIcon,
-                    text: 'تسجيل بواسطة جوجل',
-                  ),
-                  SizedBox(height: 16.h),
-                  LoginBy(logo: AppString.appleIcon, text: 'تسجيل بواسطة أبل'),
-                  SizedBox(height: 16.h),
-                  LoginBy(
-                    logo: AppString.facebookIcon,
-                    text: 'تسجيل بواسطة فيسبوك',
                   ),
                 ],
               ),

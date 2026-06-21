@@ -1,8 +1,8 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fruit_ecommerce_app/core/helper_function/custom_button.dart';
 import 'package:fruit_ecommerce_app/core/routes/routes.dart';
-import 'package:fruit_ecommerce_app/core/string/app_string.dart';
 import 'package:fruit_ecommerce_app/features/onboard/presentation/widgets/onboarding_one.dart';
 
 import '../widgets/onboarding_tow.dart';
@@ -57,24 +57,7 @@ final PageController controller=PageController();
              padding:  EdgeInsets.symmetric(horizontal: 15.w,vertical: 48.h),
              child: InkWell(
               onTap: () => Navigator.pushReplacementNamed(context, AppRoutes.loginView),
-               child: Container(
-                height: 54.h,
-                decoration: BoxDecoration(
-                  color: Color(0xff1B5E37),
-                  borderRadius: BorderRadius.circular(16.r)
-               
-                ),
-                child: Center(child: Text(
-                  'ابدأ الان',
-                  style: TextStyle(
-                    color: Color(0xffFFFFFF),
-                    fontSize: 16.r,
-                    fontWeight: FontWeight.w700
-               
-                  ),
-                
-                ),),
-               ),
+               child: CustomButton(text: 'ابدا الان',),
              ),
            ):SizedBox())
         ],
