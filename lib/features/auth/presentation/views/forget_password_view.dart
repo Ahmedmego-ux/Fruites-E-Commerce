@@ -25,57 +25,60 @@ final  _formkey3=GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(screenName: 'نسيان كلمة المرور'),
-      backgroundColor: Color(0xffFFFFFF),
-      body: Padding(
-        padding:  EdgeInsets.all(16.r),
-        child: Form(
-          key: _formkey3,
-          child: Column(
-            children: [
-              Text('لا تقلق ، ما عليك سوى كتابة رقم هاتفك وسنرسل رمز التحقق.',
-              style: TextStyle(
-                fontSize: 16.r,
-                fontWeight: FontWeight.w600,
-                color: Color(0xff616A6B)
-              ),
-              ),
-              SizedBox(height: 30.h,),
-              CustomFormTextFormFeild(
-                controller: phoneController,
-                hintText: "رقم الهاتف",
-                 sufixIcon: Icons.phone, 
-                 keyboardType: TextInputType.phone,
-                 validator: (value) {
-                  if(value==null||value.isEmpty){
-                    return 'field is required';
-          
-                  }
-                  if(value.length!=11){
-                    return "Phone Number must be 11 number";
-                  }
-                  if (!RegExp(r'^01[0125][0-9]{8}$').hasMatch(value)) {
-                 return 'Enter a valid Egyptian phone number';
-                  }
-                   return null;
-                 },
-                  ),
-                   SizedBox(height: 30.h,),
-                   CustomButton(text: 'ارسال الكود ',
-                   onTap: () {
-                     if(_formkey3.currentState!.validate()){
-                      print(phoneController.text);
-                      Navigator.pushNamed(context, AppRoutes.otpView);
-                     }
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: CustomAppBar(screenName: 'نسيان كلمة المرور'),
+        backgroundColor: Color(0xffFFFFFF),
+        body: Padding(
+          padding:  EdgeInsets.all(16.r),
+          child: Form(
+            key: _formkey3,
+            child: Column(
+              children: [
+                Text('لا تقلق ، ما عليك سوى كتابة رقم هاتفك وسنرسل رمز التحقق.',
+                style: TextStyle(
+                  fontSize: 16.r,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xff616A6B)
+                ),
+                ),
+                SizedBox(height: 30.h,),
+                CustomFormTextFormFeild(
+                  controller: phoneController,
+                  hintText: "رقم الهاتف",
+                   sufixIcon: Icons.phone, 
+                   keyboardType: TextInputType.phone,
+                   validator: (value) {
+                    if(value==null||value.isEmpty){
+                      return 'field is required';
+            
+                    }
+                    if(value.length!=11){
+                      return "Phone Number must be 11 number";
+                    }
+                    if (!RegExp(r'^01[0125][0-9]{8}$').hasMatch(value)) {
+                   return 'Enter a valid Egyptian phone number';
+                    }
+                     return null;
                    },
-                   )
-
-            ],
+                    ),
+                     SizedBox(height: 30.h,),
+                     CustomButton(text: 'ارسال الكود ',
+                     onTap: () {
+                       if(_formkey3.currentState!.validate()){
+                        print(phoneController.text);
+                        Navigator.pushNamed(context, AppRoutes.otpView);
+                       }
+                     },
+                     )
+      
+              ],
+            ),
           ),
         ),
+      
       ),
-
     );
   }
 }

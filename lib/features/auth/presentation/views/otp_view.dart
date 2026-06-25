@@ -24,84 +24,87 @@ class _OtpViewState extends State<OtpView> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(screenName: 'التحقق من الرمز'),
-      backgroundColor: const Color(0xffFFFFFF),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: Form(
-          key: _fromkey4,
-          child: Column(
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: CustomAppBar(screenName: 'التحقق من الرمز'),
+        backgroundColor: const Color(0xffFFFFFF),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: Form(
+            key: _fromkey4,
+            child: Column(
+              
+              children: [
+                SizedBox(height: 16.h),
+                Text(
+                  'أدخل الرمز الذي أرسلناه إلى عنوان بريد التالي Maxxx@email.com',
+                  style: TextStyle(
+                    fontSize: 16.r,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xff616A6B)
+                  ),
+                ),
+                SizedBox(height: 30.h),
+                Directionality(
+                   textDirection: TextDirection.ltr,
+                  child: Pinput(
+                    controller:pinputController ,
+                    validator: (value) {
+                      if(value==null||value.isEmpty){
+                        return ' failed is required';
+                      }
+                      
+                    },
             
-            children: [
-              SizedBox(height: 16.h),
-              Text(
-                'أدخل الرمز الذي أرسلناه إلى عنوان بريد التالي Maxxx@email.com',
-                style: TextStyle(
-                  fontSize: 16.r,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xff616A6B)
-                ),
-              ),
-              SizedBox(height: 30.h),
-              Directionality(
-                 textDirection: TextDirection.ltr,
-                child: Pinput(
-                  controller:pinputController ,
-                  validator: (value) {
-                    if(value==null||value.isEmpty){
-                      return ' failed is required';
-                    }
-                    
-                  },
-          
-          
-                  focusedPinTheme:PinTheme(
-                    height: 60.h,
-                    width: 64.w,
-                    padding: EdgeInsets.all(8.r),
-                    textStyle: TextStyle(
-                      
-                      color: Color(0xffF4A91F),
-                    fontSize: 23.r,
-                    fontWeight: FontWeight.w700
+            
+                    focusedPinTheme:PinTheme(
+                      height: 60.h,
+                      width: 64.w,
+                      padding: EdgeInsets.all(8.r),
+                      textStyle: TextStyle(
+                        
+                        color: Color(0xffF4A91F),
+                      fontSize: 23.r,
+                      fontWeight: FontWeight.w700
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.r),
+                        color: Color(0xffF9FAFA),
+                        border: Border.all(color: Color(0xffF4A91F))
+                      )
                     ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.r),
-                      color: Color(0xffF9FAFA),
-                      border: Border.all(color: Color(0xffF4A91F))
-                    )
-                  ),
-                  defaultPinTheme: PinTheme(
-                    height: 60.h,
-                    width: 64.w,
-                    padding: EdgeInsets.all(8.r),
-                    textStyle: TextStyle(
-                      
-                      color: Color(0xff0C0D0D),
-                    fontSize: 23.r,
-                    fontWeight: FontWeight.w700
+                    defaultPinTheme: PinTheme(
+                      height: 60.h,
+                      width: 64.w,
+                      padding: EdgeInsets.all(8.r),
+                      textStyle: TextStyle(
+                        
+                        color: Color(0xff0C0D0D),
+                      fontSize: 23.r,
+                      fontWeight: FontWeight.w700
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.r),
+                        color: Color(0xffF9FAFA),
+                        border: Border.all(color: Color(0xffE6E9EA))
+                      )
                     ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.r),
-                      color: Color(0xffF9FAFA),
-                      border: Border.all(color: Color(0xffE6E9EA))
-                    )
+                    separatorBuilder: (index) => SizedBox(width: 15.w,),
                   ),
-                  separatorBuilder: (index) => SizedBox(width: 15.w,),
                 ),
-              ),
-              SizedBox(height: 30.h,),
-              CustomButton(text: 'تحقق من الرمز',
-              onTap: () {
-                if(_fromkey4.currentState!.validate()){
-                  Navigator.pushNamed(context, AppRoutes.newPasswordView);
-                }
-                return null;
-
-              },
-              )
-            ],
+                SizedBox(height: 30.h,),
+                CustomButton(text: 'تحقق من الرمز',
+                onTap: () {
+                  if(_fromkey4.currentState!.validate()){
+                    Navigator.pushNamed(context, AppRoutes.newPasswordView);
+                  }
+                  return null;
+      
+                },
+                )
+              ],
+            ),
           ),
         ),
       ),

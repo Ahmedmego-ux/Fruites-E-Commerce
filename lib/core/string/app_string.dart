@@ -10,6 +10,7 @@ abstract class AppString {
   static String googleIcon='assets/svg/icons/google_icon.svg';
   static String appleIcon='assets/svg/icons/apple_icon.svg';
   static String facebookIcon='assets/svg/icons/facebook_icon.svg';
+  static String changePasswordIcon='assets/svg/icons/change_password.svg';
 
 
 }
