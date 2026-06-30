@@ -15,6 +15,7 @@ class SingUpView extends StatefulWidget {
 }
 
 final TextEditingController emailController = TextEditingController();
+final TextEditingController nameController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 final TextEditingController confirmPasswordController = TextEditingController();
 
@@ -38,6 +39,36 @@ class _SingUpViewState extends State<SingUpView> {
               child: Column(
                 children: [
                   SizedBox(height: 24.h),
+
+                  CustomFormTextFormFeild(
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return "Full name is required";
+                      }
+
+                      final fullName = value.trim();
+
+                      // لازم يكون الاسم على الأقل كلمتين
+                      if (fullName.split(' ').length < 2) {
+                        return "Enter your full name";
+                      }
+
+                      // يسمح بالحروف والمسافات فقط
+                      final regex = RegExp(r"^[a-zA-Z\u0600-\u06FF\s]+$");
+
+                      if (!regex.hasMatch(fullName)) {
+                        return "Name can only contain letters";
+                      }
+
+                      return null;
+                    },
+                    controller: nameController,
+                    hintText: "الاسم كامل",
+                    sufixIcon: Icons.account_circle_outlined,
+                    isPassword: false,
+                  ),
+
+                  SizedBox(height: 16.h),
                   CustomFormTextFormFeild(
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
