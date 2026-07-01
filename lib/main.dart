@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fruit_ecommerce_app/core/routes/app_routes.dart';
 import 'package:fruit_ecommerce_app/core/routes/routes.dart';
+import 'package:fruit_ecommerce_app/core/services/get_it_service.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
  
     await Firebase.initializeApp();
-    print('Firebase Connected Successfully');
- 
+     await GoogleSignIn.instance.initialize();
+    
+ setupServiceLocator();
   runApp(const MyApp());
 }
 
